@@ -1,0 +1,9 @@
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\bin\Debug\TP1.exe.config
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\bin\Debug\TP1.exe
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\bin\Debug\TP1.pdb
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\obj\Debug\TP1.csprojResolveAssemblyReference.cache
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\obj\Debug\TP1.Form1.resources
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\obj\Debug\TP1.Properties.Resources.resources
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\obj\Debug\TP1.csproj.GenerateResource.Cache
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\obj\Debug\TP1.exe
+C:\Users\Francois\PROG\École\Uni\IFT585\TP1\TP1\obj\Debug\TP1.pdb
