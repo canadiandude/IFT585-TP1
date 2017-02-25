@@ -23,15 +23,15 @@ namespace TP1
 
         public void Traiter()
         {
-            int data = -1;
-            while (data < 256)
+            Trame trame = new Trame(255, TYPE_TRAME.DATA);
+            while (!trame.IsEnd())
             {
                 if (support.DonneeRecue)
                 {
-                    data = support.Recevoir();
-                    if (data >= 256) break; // End of transmission
-                    afficher("Reception de de la trame : " + data.ToString());
-                    writer.WriteByte((byte)data);
+                    trame = support.Recevoir();
+                    if (trame.IsEnd()) break; // End of transmission
+                    afficher("Reçue : " + trame.ToString());
+                    writer.WriteByte(trame.Data);
                 }
             }
             afficher("Fin du thread Recepteur");

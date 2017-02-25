@@ -24,20 +24,22 @@ namespace TP1
         public void Traiter()
         {
             int data = 0;
+            Trame trame = new Trame(255, TYPE_TRAME.DATA);
             while (data >= 0)
             {
                 if (support.SourcePrete)
                 {
                     data = reader.ReadByte();
                     if (data == -1) break; // End of file
-                    afficher("Envoie de la trame : " + data.ToString());
-                    support.Emettre(data);
+                    trame = new Trame(data, TYPE_TRAME.DATA);
+                    afficher("Envoyée : " + trame.ToString());
+                    support.Emettre(trame);
                 }
             }
 
             while (!support.SourcePrete) ;
             afficher("Envoie du signal de fin");
-            support.Emettre(256);
+            support.Emettre(new Trame(255, TYPE_TRAME.END));
             afficher("Fin du thread Emetteur");
 
             reader.Close();

@@ -11,8 +11,8 @@ namespace TP1
     // Thread 3
     class SupportTransmission
     {
-        private int envoie;
-        private int reception;
+        private Trame envoie;
+        private Trame reception;
         public bool SourcePrete;
         public bool DonneeRecue;
         private ListBox affichage;
@@ -22,7 +22,7 @@ namespace TP1
             affichage = lbx;
             SourcePrete = true;
             DonneeRecue = false;
-            envoie = -42;
+            envoie = new Trame((byte)255, TYPE_TRAME.DATA);
         }
 
         public void Traiter()
@@ -38,17 +38,17 @@ namespace TP1
             }
         }
 
-        public void Emettre(int data)
+        public void Emettre(Trame data)
         {
             envoie = data;
-            afficher("Trame recue : " + envoie.ToString());
+            afficher("Reçue : " + envoie.ToString());
             SourcePrete = false;
         }
 
-        public int Recevoir()
+        public Trame Recevoir()
         {
             DonneeRecue = false;
-            afficher("Trame envoyée : " + reception.ToString());
+            afficher("Envoyée : " + reception.ToString());
             return reception;
         }
 

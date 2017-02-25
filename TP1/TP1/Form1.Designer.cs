@@ -42,7 +42,7 @@
             this.LBX_Emetteur.FormattingEnabled = true;
             this.LBX_Emetteur.Location = new System.Drawing.Point(12, 25);
             this.LBX_Emetteur.Name = "LBX_Emetteur";
-            this.LBX_Emetteur.Size = new System.Drawing.Size(169, 173);
+            this.LBX_Emetteur.Size = new System.Drawing.Size(180, 173);
             this.LBX_Emetteur.TabIndex = 0;
             // 
             // Label1
@@ -57,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(184, 9);
+            this.label2.Location = new System.Drawing.Point(195, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 3;
@@ -66,15 +66,15 @@
             // LBX_Support
             // 
             this.LBX_Support.FormattingEnabled = true;
-            this.LBX_Support.Location = new System.Drawing.Point(187, 25);
+            this.LBX_Support.Location = new System.Drawing.Point(198, 25);
             this.LBX_Support.Name = "LBX_Support";
-            this.LBX_Support.Size = new System.Drawing.Size(165, 173);
+            this.LBX_Support.Size = new System.Drawing.Size(180, 173);
             this.LBX_Support.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(355, 9);
+            this.label3.Location = new System.Drawing.Point(381, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 5;
@@ -83,14 +83,14 @@
             // LBX_Recepteur
             // 
             this.LBX_Recepteur.FormattingEnabled = true;
-            this.LBX_Recepteur.Location = new System.Drawing.Point(358, 25);
+            this.LBX_Recepteur.Location = new System.Drawing.Point(384, 25);
             this.LBX_Recepteur.Name = "LBX_Recepteur";
             this.LBX_Recepteur.Size = new System.Drawing.Size(180, 173);
             this.LBX_Recepteur.TabIndex = 4;
             // 
             // BTN_Start
             // 
-            this.BTN_Start.Location = new System.Drawing.Point(463, 205);
+            this.BTN_Start.Location = new System.Drawing.Point(489, 204);
             this.BTN_Start.Name = "BTN_Start";
             this.BTN_Start.Size = new System.Drawing.Size(75, 23);
             this.BTN_Start.TabIndex = 7;
@@ -102,7 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 240);
+            this.ClientSize = new System.Drawing.Size(577, 240);
             this.Controls.Add(this.BTN_Start);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LBX_Recepteur);
