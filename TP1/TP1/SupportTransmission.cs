@@ -29,7 +29,7 @@ namespace TP1
         {
             while (true)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(250);
                 if (!SourcePrete && !DonneeRecue)
                 {
                     reception = envoie;

@@ -12,23 +12,24 @@ namespace TP1
     {
         private ListBox affichage;
         private SupportTransmission support;
-        private StreamReader reader;
-
+        private FileStream reader;
+        
         public Emetteur(ListBox lbx, SupportTransmission sup)
         {
             affichage = lbx;
             support = sup;
-            reader = new StreamReader("test.txt");
+            reader = new FileStream("test.txt", FileMode.Open);
         }
 
         public void Traiter()
         {
-            int data;
-            while (!reader.EndOfStream)
+            int data = 0;
+            while (data >= 0)
             {
                 if (support.SourcePrete)
                 {
-                    data = reader.Read();
+                    data = reader.ReadByte();
+                    if (data == -1) break; // End of file
                     afficher("Envoie de la trame : " + data.ToString());
                     support.Emettre(data);
                 }
