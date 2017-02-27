@@ -13,37 +13,58 @@ namespace TP1
         private ListBox affichage;
         private SupportTransmission support;
         private FileStream reader;
+        private int numTrame;
         
         public Emetteur(ListBox lbx, SupportTransmission sup)
         {
             affichage = lbx;
             support = sup;
-            reader = new FileStream("test.txt", FileMode.Open);
+            reader = new FileStream("img.png", FileMode.Open);
+            numTrame = 0;
         }
 
         public void Traiter()
         {
             int data = 0;
-            Trame trame = new Trame(255, TYPE_TRAME.DATA);
+            Trame trame = new Trame(0, 255, TYPE_TRAME.DATA);
+            Trame notif = new Trame(0, 255, TYPE_TRAME.DATA);
             while (data >= 0)
             {
-                if (support.SourcePrete)
+                if (support.PretEmettreSource)
                 {
                     data = reader.ReadByte();
                     if (data == -1) break; // End of file
-                    trame = new Trame(data, TYPE_TRAME.DATA);
+                    trame = new Trame(NumeroterTrame(), data, TYPE_TRAME.DATA);
                     afficher("Envoyée : " + trame.ToString());
-                    support.Emettre(trame);
+                    support.EmettreDonnee(trame);
+                }
+
+                if (support.DonneeRecueSource)
+                {
+                    notif = support.RecevoirNotif();
+                    afficher("Reçue : " + notif.ToString());
                 }
             }
 
-            while (!support.SourcePrete) ;
-            afficher("Envoie du signal de fin");
-            support.Emettre(new Trame(255, TYPE_TRAME.END));
-            afficher("Fin du thread Emetteur");
+            EnvoyerSignalFin();
 
             reader.Close();
             reader.Dispose();
+        }
+
+        private void EnvoyerSignalFin()
+        {
+            while (!support.PretEmettreSource) ;
+            afficher("Envoie du signal de fin");
+            support.EmettreDonnee(new Trame(0, 255, TYPE_TRAME.END));
+            afficher("Fin du thread Emetteur");
+        }
+
+        private byte NumeroterTrame()
+        {
+            numTrame++;
+            if (numTrame >= 256) numTrame = 0;
+            return (byte)numTrame;
         }
 
         private void afficher(String msg)

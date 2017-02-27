@@ -8,12 +8,15 @@ namespace TP1
 {
     public enum TYPE_TRAME { DATA = 0, ACK, NAK, END };
     class Trame
-    { 
+    {
+        public byte Numero;
         public byte Data;
         private byte type;
 
-        public Trame(int d, TYPE_TRAME t)
+        public Trame(int num, int d, TYPE_TRAME t)
         {
+
+            Numero = (byte)num;
             Data = (byte)d;
             type = (byte)t;
         }
@@ -38,7 +41,7 @@ namespace TP1
             String str = "";
             switch((TYPE_TRAME)type)
             {
-                case TYPE_TRAME.DATA: str = "DATA : "; break;
+                case TYPE_TRAME.DATA: str = "#" + Numero.ToString() + " DATA : "; break;
                 case TYPE_TRAME.ACK: str = "ACK : "; break;
                 case TYPE_TRAME.NAK: str = "NAK : "; break;
                 case TYPE_TRAME.END: str = "END"; break;

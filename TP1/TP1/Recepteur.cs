@@ -18,26 +18,34 @@ namespace TP1
         {
             affichage = lbx;
             support = sup;
-            writer = new FileStream("new.txt", FileMode.Create);
+            writer = new FileStream("new.png", FileMode.Create);
         }
 
         public void Traiter()
         {
-            Trame trame = new Trame(255, TYPE_TRAME.DATA);
+            Trame trame = new Trame(0, 255, TYPE_TRAME.DATA);
             while (!trame.IsEnd())
             {
-                if (support.DonneeRecue)
+                if (support.DonneeRecueDestination)
                 {
-                    trame = support.Recevoir();
+                    trame = support.RecevoirDonnee();
                     if (trame.IsEnd()) break; // End of transmission
                     afficher("Reçue : " + trame.ToString());
                     writer.WriteByte(trame.Data);
+
+                    EnvoyerACK(trame.Numero);
                 }
             }
             afficher("Fin du thread Recepteur");
 
             writer.Close();
             writer.Dispose();
+        }
+
+        private void EnvoyerACK(byte numero)
+        {
+            while (!support.PretEmettreDestination) ;
+            support.EmettreNotif(new Trame(0, numero, TYPE_TRAME.ACK));
         }
 
         private void afficher(String msg)

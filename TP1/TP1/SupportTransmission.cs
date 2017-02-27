@@ -11,18 +11,29 @@ namespace TP1
     // Thread 3
     class SupportTransmission
     {
-        private Trame envoie;
-        private Trame reception;
-        public bool SourcePrete;
-        public bool DonneeRecue;
+        // Envoie du data Emetteur -> Recepteur
+        private Trame EnvoieSource;
+        private Trame ReceptionDestination;
+        public bool PretEmettreSource;
+        public bool DonneeRecueDestination;
+
+        // Envoie des ACK/NAK Repecteur -> Emetteur
+        private Trame EnvoieDestination;
+        private Trame ReceptionSource;
+        public bool PretEmettreDestination;
+        public bool DonneeRecueSource;
+
         private ListBox affichage;
 
         public SupportTransmission(ListBox lbx)
         {
             affichage = lbx;
-            SourcePrete = true;
-            DonneeRecue = false;
-            envoie = new Trame((byte)255, TYPE_TRAME.DATA);
+            PretEmettreSource = true;
+            PretEmettreDestination = true;
+            DonneeRecueDestination = false;
+            DonneeRecueSource = false;
+            EnvoieSource = new Trame(0, (byte)255, TYPE_TRAME.DATA);
+            EnvoieDestination = new Trame(0, (byte)255, TYPE_TRAME.DATA);
         }
 
         public void Traiter()
@@ -30,26 +41,46 @@ namespace TP1
             while (true)
             {
                 Thread.Sleep(250);
-                if (!SourcePrete && !DonneeRecue)
+                if (!PretEmettreSource && !DonneeRecueDestination)
                 {
-                    reception = envoie;
-                    SourcePrete = DonneeRecue = true;
+                    ReceptionDestination = EnvoieSource;
+                    PretEmettreSource = DonneeRecueDestination = true;
+                }
+
+                if (!PretEmettreDestination && !DonneeRecueSource)
+                {
+                    ReceptionSource = EnvoieDestination;
+                    PretEmettreDestination = DonneeRecueSource = true;
                 }
             }
         }
 
-        public void Emettre(Trame data)
+        public void EmettreDonnee(Trame data)
         {
-            envoie = data;
-            afficher("Reçue : " + envoie.ToString());
-            SourcePrete = false;
+            EnvoieSource = data;
+            afficher("Reçue : " + EnvoieSource.ToString());
+            PretEmettreSource = false;
         }
 
-        public Trame Recevoir()
+        public Trame RecevoirDonnee()
         {
-            DonneeRecue = false;
-            afficher("Envoyée : " + reception.ToString());
-            return reception;
+            DonneeRecueDestination = false;
+            afficher("Envoyée : " + ReceptionDestination.ToString());
+            return ReceptionDestination;
+        }
+
+        public void EmettreNotif(Trame data)
+        {
+            EnvoieDestination = data;
+            afficher("Reçue : " + EnvoieDestination.ToString());
+            PretEmettreDestination = false;
+        }
+
+        public Trame RecevoirNotif()
+        {
+            DonneeRecueSource = false;
+            afficher("Envoyée : " + ReceptionSource.ToString());
+            return ReceptionSource;
         }
 
         private void afficher(String msg)
