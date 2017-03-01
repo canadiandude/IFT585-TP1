@@ -1,0 +1,14 @@
+#Emplacement du ficher d'entrée: img.png 
+#Emplacement du fichier de sortie: new.png 
+#Taille des fenêtres: 
+#Code Correcteur(true/false): 
+#Type de rejet(G/S)
+#Erreurs(true/false): 
+
+
+
+Une ligne dans le fichier de config dois finir par : suivi d'un espace
+et rester dans cet ordre.(# est pour la etre plus clair)
+Tout nouveau parametre doivent être ajouter à la la suite des autres 
+parametres doivent etre implémenter dans le fichier Config.cs
+(en haut de ce paragraphe)

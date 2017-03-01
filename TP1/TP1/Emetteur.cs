@@ -19,7 +19,8 @@ namespace TP1
         {
             affichage = lbx;
             support = sup;
-            reader = new FileStream("img.png", FileMode.Open);
+            Config config = Config.ConfigInstance;
+            reader = new FileStream(config.CheminEntree, FileMode.Open);
             numTrame = 0;
         }
 
