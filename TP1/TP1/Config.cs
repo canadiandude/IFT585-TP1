@@ -7,7 +7,7 @@ namespace TP1
 
         private static Config instance;
 
-        public static Config configInstance => instance ?? (instance = new Config()); //singleton
+        public static Config ConfigInstance => instance ?? (instance = new Config()); //singleton
 
         public string CheminEntree { get; }
         public string CheminSortie { get; }

@@ -18,8 +18,7 @@ namespace TP1
         {
             affichage = lbx;
             support = sup;
-            Config config = Config.ConfigInstance;
-            writer = new FileStream(config.CheminSortie, FileMode.Create);
+            writer = new FileStream(Config.ConfigInstance.CheminSortie, FileMode.Create);
         }
 
         public void Traiter()
