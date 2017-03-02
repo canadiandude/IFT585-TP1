@@ -15,13 +15,13 @@ namespace TP1
             bits = new bool[BitLength(num)];
             for (int i = 0; i < bits.Length; ++i)
             {
-                bits[i] = (num & 1 << i) != 0 ? true : false;
+                bits[i] = (num & 1 << i) != 0;
             }
 
             Array.Reverse(bits);
         }
 
-        public Bits() { }
+        public Bits(bool[] b) { bits = b; }
 
         public override string ToString()
         {
@@ -64,8 +64,7 @@ namespace TP1
 
         public static Bits Codifier(Bits data)
         {
-            Bits code = new Bits();
-            code.bits = new bool[data.bits.Length + BitLength(data.bits.Length)];
+            Bits code = new Bits(new bool[data.bits.Length + BitLength(data.bits.Length)]);
 
             for (int i = 0, bitIndex = 0; i < code.bits.Length; ++i)
             {
@@ -96,8 +95,7 @@ namespace TP1
 
         public static Bits Extraire(Bits code)
         {
-            Bits data = new Bits();
-            data.bits = new bool[code.bits.Length - BitLength(code.bits.Length)];
+            Bits data = new Bits(new bool[code.bits.Length - BitLength(code.bits.Length)]);
 
             for (int i = 0, bitIndex = 0; i < code.bits.Length; ++i)
             {
