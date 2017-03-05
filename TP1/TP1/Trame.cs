@@ -11,7 +11,7 @@ namespace TP1
     {
         public byte Numero;
         public byte Data;
-        private byte type;
+        public byte type;
 
         public Trame(int num, int d, TYPE_TRAME t)
         {
@@ -45,6 +45,7 @@ namespace TP1
                 case TYPE_TRAME.ACK: str = "ACK : "; break;
                 case TYPE_TRAME.NAK: str = "NAK : "; break;
                 case TYPE_TRAME.END: str = "END"; break;
+                default: str = "FAULT : "; break;
             }
 
             if (!IsEnd())

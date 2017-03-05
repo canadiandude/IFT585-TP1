@@ -1,5 +1,5 @@
-#Emplacement du ficher d'entrée: img.png 
-#Emplacement du fichier de sortie: new.png 
+#Emplacement du ficher d'entrée: test.txt
+#Emplacement du fichier de sortie: new.txt 
 #Taille des fenêtres: 
 #Code Correcteur(true/false): 
 #Type de rejet(G/S)

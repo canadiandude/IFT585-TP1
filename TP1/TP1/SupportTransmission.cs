@@ -12,14 +12,14 @@ namespace TP1
     class SupportTransmission
     {
         // Envoie du data Emetteur -> Recepteur
-        private Trame EnvoieSource;
-        private Trame ReceptionDestination;
+        private Bits EnvoieSource;
+        private Bits ReceptionDestination;
         public bool PretEmettreSource;
         public bool DonneeRecueDestination;
 
         // Envoie des ACK/NAK Repecteur -> Emetteur
-        private Trame EnvoieDestination;
-        private Trame ReceptionSource;
+        private Bits EnvoieDestination;
+        private Bits ReceptionSource;
         public bool PretEmettreDestination;
         public bool DonneeRecueSource;
 
@@ -32,8 +32,8 @@ namespace TP1
             PretEmettreDestination = true;
             DonneeRecueDestination = false;
             DonneeRecueSource = false;
-            EnvoieSource = new Trame(0, (byte)255, TYPE_TRAME.DATA);
-            EnvoieDestination = new Trame(0, (byte)255, TYPE_TRAME.DATA);
+            EnvoieSource = new Bits(0);
+            EnvoieDestination = new Bits(0);
         }
 
         public void Traiter()
@@ -55,31 +55,31 @@ namespace TP1
             }
         }
 
-        public void EmettreDonnee(Trame data)
+        public void EmettreDonnee(Bits data)
         {
             EnvoieSource = data;
-            afficher("Reçue : " + EnvoieSource.ToString());
+            afficher("Reçue : " + afficherTrame(EnvoieSource));
             PretEmettreSource = false;
         }
 
-        public Trame RecevoirDonnee()
+        public Bits RecevoirDonnee()
         {
             DonneeRecueDestination = false;
-            afficher("Envoyée : " + ReceptionDestination.ToString());
+            afficher("Envoyée : " + afficherTrame(ReceptionDestination));
             return ReceptionDestination;
         }
 
-        public void EmettreNotif(Trame data)
+        public void EmettreNotif(Bits data)
         {
             EnvoieDestination = data;
-            afficher("Reçue : " + EnvoieDestination.ToString());
+            afficher("Reçue : " + afficherTrame(EnvoieDestination));
             PretEmettreDestination = false;
         }
 
-        public Trame RecevoirNotif()
+        public Bits RecevoirNotif()
         {
             DonneeRecueSource = false;
-            afficher("Envoyée : " + ReceptionSource.ToString());
+            afficher("Envoyée : " + afficherTrame(ReceptionSource));
             return ReceptionSource;
         }
 
@@ -87,6 +87,11 @@ namespace TP1
         {
             affichage.Items.Add(msg);
             affichage.TopIndex = affichage.Items.Count - 1;
+        }
+
+        private String afficherTrame(Bits bits)
+        {
+            return Bits.Decoder(bits).toTrame().ToString();
         }
     }
 }

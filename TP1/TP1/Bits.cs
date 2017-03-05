@@ -23,6 +23,37 @@ namespace TP1
 
         public Bits(bool[] b) { bits = b; }
 
+        public Bits(Trame trame)
+        {
+            bits = new bool[24];
+            bytesToBoolArray(trame.Numero).CopyTo(bits, 0);
+            bytesToBoolArray(trame.Data).CopyTo(bits, 8);
+            bytesToBoolArray(trame.type).CopyTo(bits, 16);
+        }
+
+        public static bool[] bytesToBoolArray(byte b)
+        {
+            bool[] arr = new bool[8];
+            Bits bits = new Bits(b);
+            bits.bits.CopyTo(arr, 8 - bits.bits.Length);
+            return arr;
+        }
+
+        public static byte boolArrayToBytes(bool[] b)
+        {
+            byte bytes = 0;
+            Array.Reverse(b);
+            for (int i = 0; i < b.Length; ++i)
+            {
+                if (b[i])
+                {
+                    bytes += (byte)Math.Pow(2, i);
+                }
+            }
+
+            return bytes;
+        }
+
         public override string ToString()
         {
             String str = "";
@@ -33,6 +64,17 @@ namespace TP1
         public void Flip(int pos)
         {
             bits[pos] = !bits[pos];
+        }
+
+        public Trame toTrame()
+        {
+            bool[] num = new bool[8],
+                data = new bool[8],
+                type = new bool[8];
+            Array.Copy(bits, 0, num, 0, 8);
+            Array.Copy(bits, 8, data, 0, 8);
+            Array.Copy(bits, 16, type, 0, 8);
+            return new Trame(boolArrayToBytes(num), boolArrayToBytes(data), (TYPE_TRAME)boolArrayToBytes(type));
         }
 
         public static int BitLength(int num)

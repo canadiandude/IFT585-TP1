@@ -28,7 +28,7 @@ namespace TP1
             {
                 if (support.DonneeRecueDestination)
                 {
-                    trame = support.RecevoirDonnee();
+                    trame = Bits.Decoder(support.RecevoirDonnee()).toTrame();
                     if (trame.IsEnd()) break; // End of transmission
                     afficher("Reçue : " + trame.ToString());
                     writer.WriteByte(trame.Data);
@@ -45,7 +45,7 @@ namespace TP1
         private void EnvoyerACK(byte numero)
         {
             while (!support.PretEmettreDestination) ;
-            support.EmettreNotif(new Trame(0, numero, TYPE_TRAME.ACK));
+            support.EmettreNotif(Bits.Codifier(new Bits(new Trame(0, numero, TYPE_TRAME.ACK))));
         }
 
         private void afficher(String msg)

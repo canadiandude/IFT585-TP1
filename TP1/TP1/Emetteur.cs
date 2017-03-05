@@ -36,12 +36,12 @@ namespace TP1
                     if (data == -1) break; // End of file
                     trame = new Trame(NumeroterTrame(), data, TYPE_TRAME.DATA);
                     afficher("Envoyée : " + trame.ToString());
-                    support.EmettreDonnee(trame);
+                    support.EmettreDonnee(Bits.Codifier(new Bits(trame)));
                 }
 
                 if (support.DonneeRecueSource)
                 {
-                    notif = support.RecevoirNotif();
+                    notif = Bits.Decoder(support.RecevoirNotif()).toTrame();
                     afficher("Reçue : " + notif.ToString());
                 }
             }
@@ -56,7 +56,7 @@ namespace TP1
         {
             while (!support.PretEmettreSource) ;
             afficher("Envoie du signal de fin");
-            support.EmettreDonnee(new Trame(0, 255, TYPE_TRAME.END));
+            support.EmettreDonnee(Bits.Codifier(new Bits(new Trame(0, 255, TYPE_TRAME.END))));
             afficher("Fin du thread Emetteur");
         }
 
