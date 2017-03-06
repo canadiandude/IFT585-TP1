@@ -14,13 +14,17 @@ namespace TP1
         private SupportTransmission support;
         private FileStream reader;
         private int numTrame;
-        
+        private Trame[] fenetres;
+        private int index;
+
         public Emetteur(ListBox lbx, SupportTransmission sup)
         {
             affichage = lbx;
             support = sup;
             reader = new FileStream(Config.ConfigInstance.CheminEntree, FileMode.Open);
             numTrame = 0;
+            fenetres = new Trame[Int32.Parse(Config.ConfigInstance.FenetreTailleEmetteur)];
+            index = -1;
         }
 
         public void Traiter()
@@ -32,17 +36,41 @@ namespace TP1
             {
                 if (support.PretEmettreSource)
                 {
-                    data = reader.ReadByte();
-                    if (data == -1) break; // End of file
-                    trame = new Trame(NumeroterTrame(), data, TYPE_TRAME.DATA);
-                    afficher("Envoyée : " + trame.ToString());
-                    support.EmettreDonnee(Bits.Codifier(new Bits(trame)));
+                    // Verifier les timeout
+                    int timeout = trouverTimeout();
+                    if (timeout != -1)
+                    {
+                        index = timeout;
+                        afficher("Timeout sur : " + fenetres[index].ToString());
+                        resetTimeout();
+                    }
+                    // Lire le data et creer trame
+                    else if (fenetres[index = (index + 1) % fenetres.Length] == null)
+                    {
+                        data = reader.ReadByte();
+                        if (data == -1 && fenetreVide()) break; // End of file
+                        if (data != -1)
+                        {
+                            //index = (index + 1) % fenetres.Length;
+                            trame = new Trame(NumeroterTrame(), data, TYPE_TRAME.DATA);
+                            fenetres[index] = trame;
+                        }
+                    }
+
+                    if (fenetres[index] != null)
+                    {
+                        afficher("Index : " + index.ToString());
+                        afficher("Envoyée : " + fenetres[index].ToString());
+                        support.EmettreDonnee(Bits.Codifier(new Bits(fenetres[index])));
+                    }
                 }
 
+                // Reception des ACK/NAK
                 if (support.DonneeRecueSource)
                 {
                     notif = Bits.Decoder(support.RecevoirNotif()).toTrame();
                     afficher("Reçue : " + notif.ToString());
+                    retirerTrame(notif.Data);
                 }
             }
 
@@ -65,6 +93,46 @@ namespace TP1
             numTrame++;
             if (numTrame >= 256) numTrame = 0;
             return (byte)numTrame;
+        }
+
+        private int trouverTimeout()
+        {
+            DateTime now = DateTime.Now;
+
+            for (int i = 0; i < fenetres.Length; ++i)
+            {
+                if (fenetres[i] != null && (now - fenetres[i].stamp) >= TimeSpan.FromMilliseconds(1500))
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private void retirerTrame(int num)
+        {
+            for (int i = 0; i < fenetres.Length; ++i)
+            {
+                if (fenetres[i] != null && fenetres[i].Numero == num)
+                {
+                    fenetres[i] = null;
+                    break;
+                }
+            }
+        }
+
+        private void resetTimeout()
+        {
+            foreach (Trame t in fenetres)
+            {
+                if (t != null) t.stamp = DateTime.Now;
+            }
+        }
+
+        private bool fenetreVide()
+        {
+            foreach (Trame t in fenetres)
+                if (t != null) return false;
+            return true;
         }
 
         private void afficher(String msg)

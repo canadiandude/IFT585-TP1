@@ -9,6 +9,7 @@ namespace TP1
     class Bits
     {
         private bool[] bits;
+        public int Length  { get { return bits.Length; }  }
 
         public Bits(int num)
         {
@@ -17,7 +18,6 @@ namespace TP1
             {
                 bits[i] = (num & 1 << i) != 0;
             }
-
             Array.Reverse(bits);
         }
 
@@ -29,6 +29,15 @@ namespace TP1
             bytesToBoolArray(trame.Numero).CopyTo(bits, 0);
             bytesToBoolArray(trame.Data).CopyTo(bits, 8);
             bytesToBoolArray(trame.type).CopyTo(bits, 16);
+        }
+
+        public Bits(Bits b)
+        {
+            bits = new bool[b.Length];
+            for(int i = 0; i < Length; ++i)
+            {
+                bits[i] = b.bits[i];
+            }
         }
 
         public static bool[] bytesToBoolArray(byte b)
@@ -177,10 +186,11 @@ namespace TP1
 
         public static Bits Decoder(Bits code)
         {
-            int badBit = Verifier(code);
+            Bits temp = new Bits(code);
+            int badBit = Verifier(temp);
             if (badBit != 0)
-                code.Flip(badBit - 1);
-            return Extraire(code);
+                temp.Flip(badBit - 1);
+            return Extraire(temp);
         }
     }
 }

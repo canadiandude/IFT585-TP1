@@ -35,20 +35,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.LBX_Recepteur = new System.Windows.Forms.ListBox();
             this.BTN_Start = new System.Windows.Forms.Button();
+            this.errorBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LBX_Emetteur
             // 
             this.LBX_Emetteur.FormattingEnabled = true;
-            this.LBX_Emetteur.Location = new System.Drawing.Point(12, 25);
+            this.LBX_Emetteur.Location = new System.Drawing.Point(16, 25);
             this.LBX_Emetteur.Name = "LBX_Emetteur";
-            this.LBX_Emetteur.Size = new System.Drawing.Size(180, 173);
+            this.LBX_Emetteur.Size = new System.Drawing.Size(250, 173);
             this.LBX_Emetteur.TabIndex = 0;
             // 
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(9, 9);
+            this.Label1.Location = new System.Drawing.Point(13, 9);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(49, 13);
             this.Label1.TabIndex = 1;
@@ -57,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(195, 9);
+            this.label2.Location = new System.Drawing.Point(269, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 3;
@@ -66,15 +68,15 @@
             // LBX_Support
             // 
             this.LBX_Support.FormattingEnabled = true;
-            this.LBX_Support.Location = new System.Drawing.Point(198, 25);
+            this.LBX_Support.Location = new System.Drawing.Point(272, 25);
             this.LBX_Support.Name = "LBX_Support";
-            this.LBX_Support.Size = new System.Drawing.Size(180, 173);
+            this.LBX_Support.Size = new System.Drawing.Size(250, 173);
             this.LBX_Support.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(381, 9);
+            this.label3.Location = new System.Drawing.Point(525, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 5;
@@ -83,14 +85,14 @@
             // LBX_Recepteur
             // 
             this.LBX_Recepteur.FormattingEnabled = true;
-            this.LBX_Recepteur.Location = new System.Drawing.Point(384, 25);
+            this.LBX_Recepteur.Location = new System.Drawing.Point(528, 25);
             this.LBX_Recepteur.Name = "LBX_Recepteur";
-            this.LBX_Recepteur.Size = new System.Drawing.Size(180, 173);
+            this.LBX_Recepteur.Size = new System.Drawing.Size(250, 173);
             this.LBX_Recepteur.TabIndex = 4;
             // 
             // BTN_Start
             // 
-            this.BTN_Start.Location = new System.Drawing.Point(489, 204);
+            this.BTN_Start.Location = new System.Drawing.Point(706, 205);
             this.BTN_Start.Name = "BTN_Start";
             this.BTN_Start.Size = new System.Drawing.Size(75, 23);
             this.BTN_Start.TabIndex = 7;
@@ -98,11 +100,33 @@
             this.BTN_Start.UseVisualStyleBackColor = true;
             this.BTN_Start.Click += new System.EventHandler(this.BTN_Start_Click);
             // 
+            // errorBtn
+            // 
+            this.errorBtn.Location = new System.Drawing.Point(625, 205);
+            this.errorBtn.Name = "errorBtn";
+            this.errorBtn.Size = new System.Drawing.Size(75, 23);
+            this.errorBtn.TabIndex = 8;
+            this.errorBtn.Text = "Error";
+            this.errorBtn.UseVisualStyleBackColor = true;
+            this.errorBtn.Click += new System.EventHandler(this.errorBtn_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(544, 205);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 240);
+            this.ClientSize = new System.Drawing.Size(793, 240);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.errorBtn);
             this.Controls.Add(this.BTN_Start);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LBX_Recepteur);
@@ -127,6 +151,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox LBX_Recepteur;
         private System.Windows.Forms.Button BTN_Start;
+        private System.Windows.Forms.Button errorBtn;
+        private System.Windows.Forms.Button button1;
     }
 }
 

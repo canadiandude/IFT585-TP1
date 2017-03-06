@@ -11,8 +11,10 @@ namespace TP1
 
         public string CheminEntree { get; }
         public string CheminSortie { get; }
-        public string FenetreTaille { get; }
-        public string CodeCorrecteur { get; }
+        public string FenetreTailleEmetteur { get; }
+        public string FenetreTailleRecepteur { get; }
+        private string CodeCorrecteur_;
+        public bool CodeCorrecteur { get { return CodeCorrecteur_ == "true"; } }
         public string TypeDeRejet { get; }
         public string Erreurs { get; }
 
@@ -25,17 +27,23 @@ namespace TP1
             CheminSortie = sr.ReadLine();
             CheminSortie = CheminSortie?.Substring(CheminSortie.IndexOf(':') + 2) ?? string.Empty;
 
-            FenetreTaille = sr.ReadLine();
-            FenetreTaille = FenetreTaille?.Substring(FenetreTaille.IndexOf(':') + 2) ?? string.Empty;
+            FenetreTailleEmetteur = sr.ReadLine();
+            FenetreTailleEmetteur = FenetreTailleEmetteur?.Substring(FenetreTailleEmetteur.IndexOf(':') + 2) ?? string.Empty;
 
-            CodeCorrecteur = sr.ReadLine();
-            CodeCorrecteur = CodeCorrecteur?.Substring(CodeCorrecteur.IndexOf(':') + 2) ?? string.Empty;
+            FenetreTailleRecepteur = sr.ReadLine();
+            FenetreTailleRecepteur = FenetreTailleRecepteur?.Substring(FenetreTailleRecepteur.IndexOf(':') + 2) ?? string.Empty;
+
+            CodeCorrecteur_ = sr.ReadLine();
+            CodeCorrecteur_ = CodeCorrecteur_?.Substring(CodeCorrecteur_.IndexOf(':') + 2) ?? string.Empty;
 
             TypeDeRejet = sr.ReadLine();
             TypeDeRejet = TypeDeRejet?.Substring(TypeDeRejet.IndexOf(':') + 2) ?? string.Empty;
 
             Erreurs = sr.ReadLine();
             Erreurs = Erreurs?.Substring(Erreurs.IndexOf(':') + 2) ?? string.Empty;
+
+            sr.Close();
+            sr.Dispose();
         }
 
     }

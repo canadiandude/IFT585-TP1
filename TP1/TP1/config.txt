@@ -1,7 +1,8 @@
 #Emplacement du ficher d'entrée: test.txt
 #Emplacement du fichier de sortie: new.txt 
-#Taille des fenêtres: 
-#Code Correcteur(true/false): 
+#Taille des fenêtres émetteur: 4
+#Taille des fenêtres récepteur: 3 
+#Code Correcteur(true/false): false
 #Type de rejet(G/S)
 #Erreurs(true/false): 
 

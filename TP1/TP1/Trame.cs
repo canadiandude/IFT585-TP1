@@ -12,6 +12,7 @@ namespace TP1
         public byte Numero;
         public byte Data;
         public byte type;
+        public DateTime stamp;
 
         public Trame(int num, int d, TYPE_TRAME t)
         {
@@ -19,6 +20,7 @@ namespace TP1
             Numero = (byte)num;
             Data = (byte)d;
             type = (byte)t;
+            stamp = DateTime.Now;
         }
 
         public bool IsACK()

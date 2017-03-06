@@ -24,6 +24,8 @@ namespace TP1
         public bool DonneeRecueSource;
 
         private ListBox affichage;
+        private bool isBreak;
+        Random r = new Random();
 
         public SupportTransmission(ListBox lbx)
         {
@@ -40,7 +42,7 @@ namespace TP1
         {
             while (true)
             {
-                Thread.Sleep(250);
+                Thread.Sleep(500);
                 if (!PretEmettreSource && !DonneeRecueDestination)
                 {
                     ReceptionDestination = EnvoieSource;
@@ -65,7 +67,17 @@ namespace TP1
         public Bits RecevoirDonnee()
         {
             DonneeRecueDestination = false;
-            afficher("Envoyée : " + afficherTrame(ReceptionDestination));
+            if (isBreak)
+            {
+                int pos = r.Next(ReceptionDestination.Length);
+                ReceptionDestination.Flip(pos);
+                afficher("Envoyée avec erreur : " + afficherTrame(ReceptionDestination));
+                isBreak = false;
+            }
+            else
+            {
+                afficher("Envoyée : " + afficherTrame(ReceptionDestination));
+            }
             return ReceptionDestination;
         }
 
@@ -83,15 +95,21 @@ namespace TP1
             return ReceptionSource;
         }
 
+
+        private String afficherTrame(Bits bits)
+        {
+            return Bits.Extraire(bits).toTrame().ToString();
+        }
+
+        public void BreakTrame()
+        {
+            isBreak = true;
+        }
+
         private void afficher(String msg)
         {
             affichage.Items.Add(msg);
             affichage.TopIndex = affichage.Items.Count - 1;
-        }
-
-        private String afficherTrame(Bits bits)
-        {
-            return Bits.Decoder(bits).toTrame().ToString();
         }
     }
 }

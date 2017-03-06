@@ -30,6 +30,21 @@ namespace TP1
             }
         }
 
+        private void errorBtn_Click(object sender, EventArgs e)
+        {
+            support.BreakTrame();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (threadStarted)
+            {
+                threadRecepteur.Abort();
+                threadEmetteur.Abort();
+                threadSupport.Abort();
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();

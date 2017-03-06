@@ -13,12 +13,14 @@ namespace TP1
         private ListBox affichage;
         private SupportTransmission support;
         private FileStream writer;
+        private int prochaineTrame;
 
         public Recepteur(ListBox lbx, SupportTransmission sup)
         {
             affichage = lbx;
             support = sup;
             writer = new FileStream(Config.ConfigInstance.CheminSortie, FileMode.Create);
+            prochaineTrame = 1;
         }
 
         public void Traiter()
@@ -28,12 +30,29 @@ namespace TP1
             {
                 if (support.DonneeRecueDestination)
                 {
-                    trame = Bits.Decoder(support.RecevoirDonnee()).toTrame();
-                    if (trame.IsEnd()) break; // End of transmission
-                    afficher("Reçue : " + trame.ToString());
-                    writer.WriteByte(trame.Data);
+                    Bits data = support.RecevoirDonnee();
+                    if (Config.ConfigInstance.CodeCorrecteur || Bits.Verifier(data) == 0)
+                    {
+                        trame = Bits.Decoder(data).toTrame();
+                        if (trame.IsEnd()) break; // End of transmission
 
-                    EnvoyerACK(trame.Numero);
+                        if (trame.Numero == prochaineTrame)
+                        {
+                            afficher("Reçue : " + trame.ToString());
+                            writer.WriteByte(trame.Data);
+
+                            EnvoyerACK(trame.Numero);
+                            prochaineTrame = (prochaineTrame + 1) % 256;
+                        }
+                        else
+                        {
+                            afficher("Trame rejetée");
+                        }
+                    }
+                    else
+                    {
+                        afficher("ERREUR");
+                    }
                 }
             }
             afficher("Fin du thread Recepteur");
@@ -46,6 +65,12 @@ namespace TP1
         {
             while (!support.PretEmettreDestination) ;
             support.EmettreNotif(Bits.Codifier(new Bits(new Trame(0, numero, TYPE_TRAME.ACK))));
+        }
+
+        private void EnvoyerNAK(byte numero)
+        {
+            while (!support.PretEmettreDestination) ;
+            support.EmettreNotif(Bits.Codifier(new Bits(new Trame(0, numero, TYPE_TRAME.NAK))));
         }
 
         private void afficher(String msg)
